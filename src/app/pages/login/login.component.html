@@ -1,0 +1,75 @@
+<section class="py-10 my-5">
+    <div class="container mx-auto w-[70%]">
+        <div class="bg-white shadow-lg shadow-slate-300 border-gray-100 rounded-md border-2">
+            <div class="py-10">
+                <h2 class="font-bold text-2xl text-center">Welcom Back!</h2>
+                <p class="text-center">Please login or sign up to continue our opp</p>
+
+                <form class="text-center md:w-[70%] lg:w-[60%] w-[90%] m-auto py-4" [formGroup]="SignIn" (ngSubmit)="submitform()">
+                    <div class="relative mb-4">
+                        <input type="email" id="Email" class="Inputs w-full " formControlName="email">
+                        <label for="Email" class="absolute Labels">Email</label>
+                        @if (SignIn.get('email')?.errors && SignIn.get('email')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold" role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignIn.get('email')?.getError('required')) {
+                                <li>Email Is Required </li>
+                                }
+                                @else if (SignIn.get('email')?.getError('email')) {
+                                <li>Please enter a valid email address</li>
+                                }
+
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" id="password" class="Inputs w-full " formControlName="password">
+                        <label for="password" class="absolute Labels">Password</label>
+                        @if (SignIn.get('password')?.errors && SignIn.get('password')?.touched) {
+                        <div class="flex p-3  text-sm text-red-800 rounded-lg  text-start font-semibold" role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignIn.get('password')?.getError('required')) {
+                                <li>Password Is Required </li>
+                                }
+                                @else if (SignIn.get('password')?.getError('pattern')) {
+                                <li> password must start with upperCase then from 6 to more any chars </li>
+                                }
+
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    @if (messageErr) {
+                    <p class="text-red-600">{{messageErr}}</p>
+                    }
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center ">
+                            <input id="default-checkbox" type="checkbox" value=""
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm ">
+                            <label for="default-checkbox"
+                                class="ms-2 text-sm font-medium text-gray-900 ">Remember Me</label>
+                        </div>
+
+                        <p class="text-mainColor font-semibold text-sm md:text-lg cursor-pointer" routerLink="/Forget">Forgot Password? </p>
+                    </div>
+                    <button type="submit" class="bg-mainColor px-20 py-3 rounded-full text-white font-bold">Login
+                        @if (isLoading) {
+
+                        <span><i class="fas fa-spin fa-spinner"></i></span>
+                        }
+                    </button>
+                    <div class="pt-5">
+                        <p class="text-gray-500">Don’t have an account ? <span class="font-bold text-mainColor cursor-pointer" routerLink="/Signup">Sign up</span></p>
+                    </div>
+                </form>
+                <!-- <div class="bg-custom-gradient text-center md:rounded-l-full  text-white pt-48 pb-20">
+                    <h2 class="text-3xl font-bold mb-2">Hello,Welcome!</h2>
+                    <p class="text-lg mb-3">Don't have an account?</p>
+                    <button class="px-10 py-3 rounded-md text-white font-bold border">Sing Up</button>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+</section>

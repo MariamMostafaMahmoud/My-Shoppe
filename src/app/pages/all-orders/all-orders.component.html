@@ -1,0 +1,12 @@
+<section>
+    <div class="container mx-auto px-10">
+        <div class="  bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-xl font-semibold mb-4">All Orders</h2>
+         @for (item of Orders.cartItems; track $index) {
+            <div class="space-y-4 border-b-2 border-b-fourthColor">
+                <p>{{item.product.title}}</p>
+            </div>
+         }
+        </div>
+    </div>
+</section>

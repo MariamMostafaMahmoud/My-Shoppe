@@ -32,9 +32,13 @@
               }
             ],
             "styles": [
+              "node_modules/ngx-spinner/animations/ball-climbing-dot.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/flowbite/dist/flowbite.min.js"
+            ],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -103,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "70e5782c-aeb3-4339-a308-14b5c0c2cc45"
   }
 }
