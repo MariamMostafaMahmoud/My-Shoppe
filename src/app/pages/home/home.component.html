@@ -1,0 +1,60 @@
+<section>
+    <div>
+        <app-slider></app-slider>
+        <h2 class="text-center text-2xl font-bold pb-5 capitalize">popular product</h2>
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-center ">
+
+                @for (product of Allproducts; track product.id) {
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm  h-[100%] cursor-pointer p-2">
+                    <div >
+                        <div class="bg-thirdColor h-full w-full rounded-md relative">
+                            <img class="object-contain  h-[100%]" [src]="product.imageCover"
+                                [alt]="product.title" [routerLink]="['/details',product.id]"/>
+                                <i class="fa-regular fa-heart absolute top-5 right-5 bg-white py-2 px-3 text-2xl text-mainColor rounded-full border-2 border-mainColor"     [ngClass]="{'fa-solid text-red-500': isFav, 'fa-regular text-gray-400': !isFav}"
+                                (click)="toggleFav()"></i>
+                        </div>
+                        <div class="p-2">
+                            <h5 class=" text-2xl font-bold tracking-tight text-font3nd">
+                                {{product.title.split(' ',2).join(' ')}}</h5>
+
+                            <div class="flex items-center ">
+                                <i class="fa-solid fa-star text-yellow-200"></i>
+                                <p>{{product.ratingsAverage}}</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-mainColor font-bold text-2xl">{{product.price}} $</p>
+                                <div (click)="AddToCart(product.id)">
+                                    <i
+                                        class="fa-solid fa-plus bg-mainColor text-white px-3 py-2 text-lg rounded-lg hover:border-secondColor hover:text-secondColor hover:border-2 hover:bg-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                }
+            </div>
+            <button
+                class="border-2 border-mainColor text-mainColor py-2 px-5 rounded-full hover:bg-mainColor hover:text-white transition-all">Veiw
+                All Products</button>
+        </div>
+        <!-- slider Brands -->
+         <div class="my-5">
+            <owl-carousel-o [options]="customOptions" >
+                <ng-container>
+                 @for (brand of AllBrands; track $index) {
+                    <ng-template carouselSlide>
+                        <div class="border-2 border-[#EBEEEE] hover:border-mainColor mx-3">
+                            <img [src]="brand.image" alt="" class="h-28">
+    
+                        </div>
+                    </ng-template>
+                 }
+    
+                </ng-container>
+    
+            </owl-carousel-o>
+         </div>
+    </div>
+</section>

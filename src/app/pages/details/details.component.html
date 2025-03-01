@@ -1,0 +1,46 @@
+<section>
+    <div class="container mx-auto">
+        <div class="flex items-center gap-2">
+            <p class="text-mainColor font-bold text-2xl">Home</p>
+            <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
+            <p class="text-font4nd font-bold text-2xl">Product Details</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="Photo">
+          
+                <div class="flex">
+                    
+                    <div class="images">
+                        @for (item of detailsProduct.images; track $index) {
+                        <img [src]="item" [alt]="detailsProduct.title" class="w-16 h-16 border rounded-lg cursor-pointer">
+                        }
+    
+                    </div>
+                    <img [src]="detailsProduct.imageCover" [alt]="detailsProduct.title"  class="w-full rounded-lg border-2 border-font2nd shadow-md h-96 object-contain">
+                    <!-- <p>
+                        {{detailsProduct.title}}
+                    </p>
+                    <p>
+                        {{detailsProduct.description}}
+                    </p>
+                    <p>
+                        {{detailsProduct.price}}
+                    </p> -->
+                </div>
+            </div>
+            <div class="description">
+                <div>
+                    <h1 class="text-2xl font-bold">{{detailsProduct.title}}</h1>
+                    <p class="text-gray-600 mt-2">{{detailsProduct.description}}</p>
+                    <p class="text-red-500 text-xl font-semibold mt-4">{{(detailsProduct.price)| currency: '$'}}</p>
+                    <button class="bg-black text-white py-2 px-6 rounded-lg w-full mt-2 hover:bg-gray-800">Add To Cart</button>
+                    <div class="mt-4 text-gray-700">
+                        <p>Delivery: 3-6 days (within US) / 12-26 days (International)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

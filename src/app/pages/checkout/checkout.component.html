@@ -1,0 +1,104 @@
+<div class="container mx-auto p-4">
+    <div class="flex flex-col md:flex-row gap-8">
+
+        <div class="w-full md:w-2/3 bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-xl font-semibold mb-4">information For Payment</h2>
+            <form [formGroup]="checkOut" (ngSubmit)="submitFormOrder()" name="form">
+                <div class="relative mb-4">
+                    <input type="tel" id="phone" class="Inputs w-full  capitalize py-4" formControlName="phone"
+                        placeholder="enter your phone">
+                    <label for="phone" class="absolute Labels">phone</label>
+                    @if (checkOut.get('phone')?.errors && checkOut.get('phone')?.touched) {
+                    <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (checkOut.get('phone')?.getError('required')) {
+                            <li>phone Is Required </li>
+                            }
+                            @else if (checkOut.get('phone')?.getError('pattern')) {
+                            <li>Please enter a valid phone</li>
+                            }
+
+                        </ul>
+                    </div>
+                    }
+                </div>
+                <div class="relative mb-4">
+                    <input type="text" id="city" class="Inputs w-full  capitalize py-4" formControlName="city"
+                        placeholder="enter your city">
+                    <label for="city" class="absolute Labels">city</label>
+                    @if (checkOut.get('city')?.errors && checkOut.get('city')?.touched) {
+                    <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (checkOut.get('city')?.getError('required')) {
+                            <li>city Is Required </li>
+                            }
+                        </ul>
+                    </div>
+                    }
+                </div>
+                <div class="relative mb-4">
+                    <textarea id="details" class="Inputs w-full capitalize py-4" formControlName="details"
+                        placeholder="enter your details"></textarea>
+                    <label for="details" class="absolute Labels">Your Details</label>
+                    @if (checkOut.get('details')?.errors && checkOut.get('details')?.touched) {
+                    <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold" role="alert">
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @if (checkOut.get('details')?.getError('required')) {
+                            <li>details Is Required </li>
+                            }
+                        </ul>
+                    </div>
+                    }
+                </div>
+                <div class="flex pb-2 ps-2">
+                    <div class="flex items-center me-4">
+                        <input id="inline-radio" type="radio" value="" name="inline-radio-group"
+                            class="w-4 h-4 text-mainColor bg-gray-100 border-gray-300 focus:ring-mainColor   focus:ring-2  "
+                            (change)="paymentMethod='cash'">
+                        <label for="inline-radio"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cash</label>
+                    </div>
+                    <div class="flex items-center me-4">
+                        <input id="inline-2-radio" type="radio" value="" name="inline-radio-group"
+                            class="w-4 h-4 text-mainColor bg-gray-100 border-gray-300 focus:ring-mainColor   focus:ring-2  "
+                            (change)="paymentMethod='visa'">
+                        <label for="inline-2-radio"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Visa</label>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button [disabled]="checkOut.invalid"
+                        class="border-2 border-mainColor disabled:bg-secondColor disabled:border-none disabled:text-white text-mainColor py-2 px-8 rounded-full hover:bg-mainColor hover:text-white transition-all"
+                        type="submit">
+                        Payment
+                    </button>
+                    <!-- <button [disabled]="checkOut.invalid"
+                        class="hover:border-2 hover:border-mainColor hover:bg-white hover:text-mainColor py-2 px-8 rounded-full bg-mainColor text-white transition-all disabled:bg-secondColor disabled:border-none disabled:text-white"
+                        type="submit">
+                        Cash
+                    </button> -->
+                </div>
+            </form>
+        </div>
+
+        <div class="w-full md:w-2/5 bg-white p-6 shadow-lg rounded-lg">
+            <h2 class="text-xl font-semibold mb-4">Shopping Cart</h2>
+            @for (product of productsOFCart.products ; track $index) {
+            <div class="space-y-4 border-b-2 border-b-fourthColor">
+                <div class="flex items-center gap-4 justify-between">
+                    <div class="flex items-center">
+                        <img [src]="product.product.imageCover" class="w-20 h-20 rounded-lg" />
+                        <p class="font-bold text-font3nd">{{product.product.title}}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-medium">{{product.count}} X </p>
+                        <p class="ml-auto font-semibold">{{product.price |currency:'$' }}</p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+    </div>
+</div>

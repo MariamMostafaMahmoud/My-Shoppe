@@ -1,0 +1,41 @@
+// .sliderCard{
+//     background-color: rgb(255, 234, 233);
+// }
+
+.owl-carousel {
+    position: relative;
+  }
+  
+  .owl-nav {
+    position: absolute;
+    top: 10px; /* المسافة من الأعلى */
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* توزيع الأسهم يمين ويسار */
+    pointer-events: none; /* عشان الماوس ما يتأثر بيهم */
+  }
+  
+  .owl-prev, .owl-next {
+    pointer-events: all; /* عشان الأزرار تبقى قابلة للضغط */
+    font-size: 24px;
+    color: white; /* لون السهم */
+    background: rgba(0, 0, 0, 0.5); /* خلفية شفافة */
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  
+  .owl-prev {
+    margin-left: 10px;
+  }
+  
+  .owl-next {
+    margin-right: 10px;
+  }
+  
+  .owl-prev:hover, .owl-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  
+  

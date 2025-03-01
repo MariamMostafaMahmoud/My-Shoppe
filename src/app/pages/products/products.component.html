@@ -1,0 +1,78 @@
+<section class="py-10 mx-10">
+    <div class="container mx-auto">
+        <div class="flex items-center gap-2">
+            <p class="text-mainColor font-bold text-2xl">Home</p>
+            <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
+            <p class="text-font4nd font-bold text-2xl">Products</p>
+        </div>
+        <div class="flex justify-between items-center flex-col md:flex-row">
+            <h2 class="text-mainColor text-2xl font-bold">Full Products</h2>
+            <form class="max-w-lg  " name="form">
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-mainColor " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-mainColor rounded-lg bg-gray-50 focus:ring-mainColor focus:border-mainColor   "
+                        placeholder="Search ProductS..." [(ngModel)]="searchText" name="form"
+                        (input)="SearchProduct()" />
+                </div>
+            </form>
+        </div>
+
+
+        <div class="py-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 justify-center ">
+                @for (product of ProductFilter|paginate:{id:'products',itemsPerPage:limit,currentPage:page ,totalItems:total}; track product.id ) {
+                <div
+                    class="mx-5 md:mx-0 bg-white border border-gray-200 rounded-lg shadow-sm  h-[100%] cursor-pointer p-2">
+                    <div>
+                        <div class="bg-thirdColor h-full w-full rounded-md relative">
+                            <img class="object-contain  h-72 w-[100%]" [src]="product.imageCover" [alt]="product.title"
+                                [routerLink]="['/details',product.id]" />
+                            <!-- <i class="fa-regular fa-heart absolute top-5 right-10 bg-white py-2 px-3 text-2xl text-mainColor rounded-full border-2"></i> -->
+                        </div>
+                        <div class="p-2">
+                            <h5 class=" text-2xl font-bold tracking-tight text-font3nd">
+                                {{product.title.split(' ',2).join(' ')}}</h5>
+
+                            <div class="flex items-center ">
+                                <i class="fa-solid fa-star text-yellow-200"></i>
+                                <p>{{product.ratingsAverage}}</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-mainColor font-bold text-2xl">{{product.price}} $</p>
+                                <div>
+                                    <i
+                                        class="fa-solid fa-plus bg-mainColor text-white px-3 py-2 text-lg rounded-lg hover:border-secondColor hover:text-secondColor hover:border-2 hover:bg-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-center my-4">
+            <pagination-controls id="pagination" (pageChange)="chagePage($event)"
+                class="custom-pagination"
+                previousLabel="Prev"
+                nextLabel="Next"
+                screenReaderPaginationLabel="Pagination"
+                screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page"
+                id="products">
+            </pagination-controls>
+        </div>
+        
+        
+
+    </div>
+</section>

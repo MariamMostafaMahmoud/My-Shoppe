@@ -1,0 +1,117 @@
+<section>
+    <div class="container mx-auto py-5">
+        <!-- Breadcrumbs -->
+        <div class="flex items-center gap-2">
+            <p class="text-mainColor font-bold text-2xl">Home</p>
+            <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
+            <p class="text-font4nd font-bold text-2xl">Cart</p>
+        </div>
+        <!-- Page Title -->
+        <!-- <h2 class="text-font3nd font-bold text-4xl my-4">Shopping Cart</h2> -->
+        <div class="flex flex-col lg:flex-row gap-5 p-2 rounded-lg mb-5">
+            <!-- Cart Items -->
+            <div class="overflow-x-auto lg:w-2/3 bg-white shadow-lg p-3 rounded-lg">
+                <div class="flex justify-between items-center my-4">
+                    <h2 class="text-font3nd font-bold text-4xl">Shopping Cart</h2>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded-lg" (click)="ClearCart()">Clear Cart</button>
+                </div>
+                
+                <div class="hidden md:block">
+                    <table class="w-full border-collapse border border-gray-200 bg-white  min-w-[600px] ">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-3 text-left">Product</th>
+                                <th class="p-3 text-center">Price</th>
+                                <th class="p-3 text-center">Quantity</th>
+                                <th class="p-3 text-center">Total Price</th>
+                                <th class="p-3 text-center">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          @for (itemOfCart of CartDetails.products; track $index) {
+                            <tr class="border-t">
+                                <td class="p-3 flex items-center gap-4">
+                                    <img [src]="itemOfCart.product.imageCover" alt="Product" class="w-16 h-16 rounded-md">
+                                    <div>
+                                        <h3 class="text-lg font-semibold">{{itemOfCart.product.title}}</h3>
+                                        <div class="flex gap-2 mt-2">
+                                            <select class="border p-1 rounded">
+                                                <option>Blue</option>
+                                                <option>Green</option>
+                                                <option>Gray</option>
+
+                                            </select>
+                                            <select class="border p-1 rounded">
+                                                <option>XL</option>
+                                                <option>xxL</option>
+                                                <option>3XL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center font-semibold">{{itemOfCart.price |currency:'$' }}</td>
+                                <td class="p-3 text-center">
+                                    <div class="flex items-center justify-center gap-2 border px-3 py-1 rounded-full">
+                                        <button class="px-2 py-1" (click)="updateCount(itemOfCart.product.id,itemOfCart.count -1)">-</button>
+                                        <span>{{itemOfCart.count}}</span>
+                                        <button class="px-2 py-1" (click)="updateCount(itemOfCart.product.id,itemOfCart.count +1)">+</button>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-center font-semibold">{{(itemOfCart.price)*(itemOfCart.count) |currency:'$' }}</td>
+                                <td class="p-3 text-center">
+                                    <button class="text-red-500 text-lg" (click)="RemoveItem(itemOfCart.product.id)">✖</button>
+                                </td>
+                            </tr>
+                          }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Cart Layout -->
+                <div class="md:hidden flex flex-col gap-4">
+                   @for (items of CartDetails.products; track $index) {
+                    <div class="border p-4 rounded-lg shadow-md bg-white">
+                        <div class="flex items-center gap-4">
+                            <img [src]="items.product.imageCover" alt="Product" class="w-16 h-16 rounded-md">
+                            <div>
+                                <h3 class="text-lg font-semibold">{{items.product.title}}</h3>
+                                <div class="flex gap-2 mt-2">
+                                    <select class="border p-1 rounded"><option>Blue</option></select>
+                                    <select class="border p-1 rounded"><option>XL</option></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 grid grid-cols-2 gap-4 text-center">
+                            <div class="text-lg font-semibold">Price :{{items.price |currency:'$' }}</div>
+                            <div class="flex items-center justify-center gap-2 border px-3 py-1 rounded-full">
+                                <button class="px-2 py-1" (click)="updateCount(items.product.id,items.count -1)">-</button>
+                                <span>{{items.count}}</span>
+                                <button class="px-2 py-1" (click)="updateCount(items.product.id,items.count +1)">+</button>
+                            </div>
+                            <div class="text-lg font-semibold">Total: {{(items.price)*(items.count) |currency:'$' }}</div>
+                            <button class="text-red-500 text-lg" (click)="RemoveItem(items.product.id)">✖</button>
+                        </div>
+                    </div>
+                   }
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full lg:w-1/3">
+                <div class="bg-gray-50 p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-bold mb-4">Order Summary</h3>
+                    <p class="flex justify-between">Subtotal <span>{{(CartDetails.totalCartPrice) |currency:'$' }}</span></p>
+                    <p class="flex justify-between">Discounts <span>-$80.00</span></p>
+                    <p class="flex justify-between">Shipping <span>Free</span></p>
+                    <hr class="my-2">
+                    <p class="flex justify-between text-xl font-bold">Total <span>{{(CartDetails.totalCartPrice) - (80)|currency:'$' }}</span></p>
+                    <div class="mt-4">
+                        <input type="checkbox" id="terms" class="mr-2">
+                        <label for="terms">I agree to the <a href="#" class="text-blue-500">terms and conditions</a></label>
+                    </div>
+                    <button class="w-full mt-4 bg-mainColor text-white py-2 rounded-lg" [routerLink]="['/checkout',CartDetails._id]">Complete Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

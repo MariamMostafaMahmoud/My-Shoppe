@@ -1,0 +1,125 @@
+<section class="my-5">
+    <div class="container mx-auto w-[70%]">
+        <div class="bg-white shadow-lg shadow-slate-300 border-gray-100 rounded-md border-2">
+            <div >
+                <form class="text-center md:w-[70%] lg:w-[60%] w-[90%] m-auto py-6" [formGroup]="SignUp" (ngSubmit)="submitform()">
+                    <h2 class="font-bold text-2xl text-center">Create a Account</h2>
+                    <p class="text-center mb-5">Create a new account</p>
+    
+                    <div class="relative mb-4">
+                        <input type="text" class="Inputs w-full " formControlName="name">
+                        <label class="absolute Labels">Username</label>
+                        @if (SignUp.get('name')?.errors && SignUp.get('name')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignUp.get('name')?.getError('required')) {
+                                <li>Name Is Required </li>
+                                }
+                                @else if (SignUp.get('name')?.getError('minlength')) {
+                                <li>Name Should be more than or equal 3 chars</li>
+                                }
+                                @else if(SignUp.get('name')?.getError('maxlength')) {
+                                <li>Name Should be less than or equal 20 chars</li>
+                                }
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="email" id="Email" class="Inputs w-full " formControlName="email">
+                        <label for="Email" class="absolute Labels">Email</label>
+                        @if (SignUp.get('email')?.errors && SignUp.get('email')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignUp.get('email')?.getError('required')) {
+                                <li>Email Is Required </li>
+                                }
+                                @else if (SignUp.get('email')?.getError('email')) {
+                                <li>Please enter a valid email address</li>
+                                }
+
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" id="password" class="Inputs w-full " formControlName="password">
+                        <label for="password" class="absolute Labels">Password</label>
+                        @if (SignUp.get('password')?.errors && SignUp.get('password')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignUp.get('password')?.getError('required')) {
+                                <li>Password Is Required </li>
+                                }
+                                @else if (SignUp.get('password')?.getError('pattern')) {
+                                <li> password must start with upperCase then from 6 to more any chars </li>
+                                }
+
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="password" id="confirmPassword" class="Inputs w-full " formControlName="rePassword">
+                        <label for="confirmPassword" class="absolute Labels">Confirm Password</label>
+                        @if (SignUp.getError('mismatch') && SignUp.get('rePassword')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                <li>Password not match </li>
+                            </ul>
+                        </div>
+                        }
+                        @if (SignUp.get('rePassword')?.getError('required') && SignUp.get('rePassword')?.touched ) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                <li>Confirm Password is Required</li>
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="tel" id="phone" class="Inputs w-full " formControlName="phone">
+                        <label for="phone" class="absolute Labels">Phone</label>
+                        @if (SignUp.get('phone')?.errors && SignUp.get('phone')?.touched) {
+                        <div class="flex p-3 text-sm text-red-800 rounded-lg  text-start font-semibold"
+                            role="alert">
+                            <ul class="mt-1.5 list-disc list-inside">
+                                @if (SignUp.get('phone')?.getError('required')) {
+                                <li>Phone Is Required </li>
+                                }
+                                @else if (SignUp.get('phone')?.getError('pattern')) {
+                                <li> accept only egypt phone numbers</li>
+                                }
+
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    @if (messageErr) {
+                    <p class="text-red-600">{{messageErr}}</p>
+                    }
+                    <button type="submit" class="bg-mainColor px-10 py-3 rounded-md text-white font-bold">Sign
+                        Up
+                        @if (isLoading) {
+
+                        <span><i class="fas fa-spin fa-spinner"></i></span>
+                        }
+                    </button>
+                    <div class="pt-5">
+                        <p class="text-gray-500">Already have on account? <span class="font-bold text-mainColor cursor-pointer" routerLink="/login">Sign in</span></p>
+                    </div>
+                </form>
+                <!-- <div class="bg-custom-gradient text-center md:rounded-l-full  text-white pt-48 pb-20">
+                    <h2 class="text-3xl font-bold mb-2">Welcome Back!</h2>
+                    <p class="text-lg mb-3">Already have an account?</p>
+                    <button class="px-10 py-3 rounded-md text-white font-bold border">Login</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>
