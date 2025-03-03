@@ -1,5 +1,5 @@
 <section class="py-10 px-10">
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4 max-w-7xl">
         <div class="flex items-center gap-2">
             <p class="text-mainColor font-bold text-2xl">Home</p>
             <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
@@ -36,6 +36,9 @@
                         <div class="bg-thirdColor h-full w-full rounded-md relative">
                             <img class="object-contain  h-[100%] w-[100%]" [src]="product.imageCover" [alt]="product.title"
                                 [routerLink]="['/details',product.id]" />
+                                <i class="fa-regular fa-heart absolute top-3 right-4 py-1 px-2 text-xl text-mainColor rounded-full border-2 border-mainColor shadow-md transition-all duration-300"
+                                [ngClass]="{'fa-solid text-red-500': product.isFav, 'fa-regular text-gray-400': !product.isFav}"
+                                (click)="toggleWishlist(product.id)"></i>
                         </div>
                         <div class="p-2">
                             <h5 class=" text-2xl font-bold tracking-tight text-font3nd">
@@ -49,7 +52,7 @@
                                 <p class="text-mainColor font-bold text-2xl">{{product.price}} $</p>
                                 <div>
                                     <i
-                                        class="fa-solid fa-plus bg-mainColor text-white px-3 py-2 text-lg rounded-lg hover:border-secondColor hover:text-secondColor hover:border-2 hover:bg-white"></i>
+                                        class="fa-solid fa-plus bg-mainColor text-white px-3 py-2 text-lg rounded-lg hover:border-secondColor hover:text-secondColor hover:border-2 hover:bg-white" (click)="AddToCart(product.id)"></i>
                                 </div>
                             </div>
                         </div>

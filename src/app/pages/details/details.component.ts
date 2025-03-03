@@ -4,6 +4,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../core/services/products/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { CartService } from '../../core/services/cart/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,7 +17,25 @@ import { CurrencyPipe } from '@angular/common';
 export class DetailsComponent implements OnInit {
   private readonly productService = inject(ProductService)
   private readonly activatedRoute = inject(ActivatedRoute)
+    private readonly cartService = inject(CartService);
+      private readonly toastr = inject(ToastrService);
+    
   detailsProduct: Iproduct = {} as Iproduct
+
+  AddToCart(id: string) {
+    this.cartService.AddProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status === 'success') {
+          this.toastr.success(res.message, res.status)
+          this.cartService.CartNum.next(res.numOfCartItems)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
   getId() {
     this.activatedRoute.paramMap.subscribe(
       {

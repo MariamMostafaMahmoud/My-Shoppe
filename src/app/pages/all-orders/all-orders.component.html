@@ -1,12 +1,36 @@
 <section>
     <div class="container mx-auto px-10">
         <div class="  bg-white p-6 shadow-lg rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">All Orders</h2>
-         @for (item of Orders.cartItems; track $index) {
-            <div class="space-y-4 border-b-2 border-b-fourthColor">
-                <p>{{item.product.title}}</p>
+            <div class="container mx-auto p-6">
+                <h2 class="text-2xl font-semibold mb-4">All Orders</h2>
+                <!-- Orders Table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-100 border-b">
+                                <th class="py-3 px-4 text-left">Customer</th>
+                                <th class="py-3 px-4 text-left">City</th>
+                                <th class="py-3 px-4 text-left">Date</th>
+                                <th class="py-3 px-4 text-left">Total</th>
+                                <th class="py-3 px-4 text-left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (order of Orders; track $index) {
+                            <tr class="border-b">
+                                <td class="py-3 px-4">{{order.user.name}}</td>
+                                <td class="py-3 px-4">{{order.shippingAddress.city}}</td>
+                                <td class="py-3 px-4">{{order.createdAt|date:'dd/MM/yyyy'  }}</td>
+                                <td class="py-3 px-4">{{order.totalOrderPrice|currency:'$'}}</td>
+                                <td class="py-3 px-4 text-green-600">Completed</td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-         }
+
         </div>
     </div>
 </section>

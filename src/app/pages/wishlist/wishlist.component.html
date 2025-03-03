@@ -1,5 +1,39 @@
 <section>
-    <div class="container mx-auto">
+    <div class="container mx-auto px-4 max-w-7xl py-10">
+        <div class="flex items-center gap-2">
+            <p class="text-mainColor font-bold text-2xl">Home</p>
+            <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
+            <p class="text-font4nd font-bold text-xl">Fav Product</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center pt-5 items-center">
+            @for (product of productWishList; track $index) {
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm  h-[100%] cursor-pointer p-2">
+                    <div >
+                        <div class="bg-thirdColor h-full w-full rounded-md relative">
+                            <img class="object-contain  h-[100%]" [src]="product.imageCover"
+                                [alt]="product.title" [routerLink]="['/details',product.id]"/>
+                                <i class="fa-regular fa-heart absolute top-5 right-5 bg-white py-2 px-3 text-2xl text-mainColor rounded-full border-2 border-mainColor"     [ngClass]="{'fa-solid text-red-500': product.isFav, 'fa-regular text-gray-400': !product.isFav}"(click)=" toggleWishlist(product.id)"
+                                ></i>
+                        </div>
+                        <div class="p-2">
+                            <h5 class=" text-2xl font-bold tracking-tight text-font3nd">
+                                {{product.title.split(' ',2).join(' ')}}</h5>
 
+                            <div class="flex items-center ">
+                                <i class="fa-solid fa-star text-yellow-200"></i>
+                                <p>{{product.ratingsAverage}}</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-mainColor font-bold text-2xl">{{product.price}} $</p>
+                                <div (click)="AddToCart(product.id)">
+                                    <i
+                                        class="fa-solid fa-plus bg-mainColor text-white px-3 py-2 text-lg rounded-lg hover:border-secondColor hover:text-secondColor hover:border-2 hover:bg-white"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </section>

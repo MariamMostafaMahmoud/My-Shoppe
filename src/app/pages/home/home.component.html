@@ -1,20 +1,26 @@
 <section>
     <div>
         <app-slider></app-slider>
-        <h2 class="text-center text-2xl font-bold pb-5 capitalize">popular product</h2>
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-center ">
-
-                @for (product of Allproducts; track product.id) {
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm  h-[100%] cursor-pointer p-2">
-                    <div >
+        <div class="max-w-6xl mx-auto text-center my-3">
+            <p class="text-lg text-mainColor font-semibold ">Popular Products</p>
+            <h2 class="text-3xl font-bold text-font3nd my-2">
+                Benefits when using <br> our Products
+            </h2>
+        </div>
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center ">
+                @for (product of Allproducts.slice(0,displayedProductsCount); track product.id) {
+                <div class="mx-10 max-w-sm md:max-w-full md:mx-0 bg-white border border-gray-200 rounded-lg shadow-sm  h-[100%] cursor-pointer p-2">
+                    <div>
                         <div class="bg-thirdColor h-full w-full rounded-md relative">
-                            <img class="object-contain  h-[100%]" [src]="product.imageCover"
-                                [alt]="product.title" [routerLink]="['/details',product.id]"/>
-                                <i class="fa-regular fa-heart absolute top-5 right-5 bg-white py-2 px-3 text-2xl text-mainColor rounded-full border-2 border-mainColor"     [ngClass]="{'fa-solid text-red-500': isFav, 'fa-regular text-gray-400': !isFav}"
-                                (click)="toggleFav()"></i>
+                            <img class="object-contain  h-[100%]" [src]="product.imageCover" [alt]="product.title"
+                                [routerLink]="['/details',product.id]" />
+                                <i class="fa-regular fa-heart absolute top-3 right-4 py-1 px-2 text-xl text-mainColor rounded-full border-2 border-mainColor shadow-md transition-all duration-300"
+                                [ngClass]="{'fa-solid text-red-500': product.isFav, 'fa-regular text-gray-400': !product.isFav}"
+                                (click)="toggleWishlist(product.id)">
+                            </i>
                         </div>
-                        <div class="p-2">
+                        <div class="p-2 ">
                             <h5 class=" text-2xl font-bold tracking-tight text-font3nd">
                                 {{product.title.split(' ',2).join(' ')}}</h5>
 
@@ -35,26 +41,73 @@
 
                 }
             </div>
-            <button
-                class="border-2 border-mainColor text-mainColor py-2 px-5 rounded-full hover:bg-mainColor hover:text-white transition-all">Veiw
-                All Products</button>
+            <div class="flex justify-center items-center py-10">
+                <button
+                    class="border-2 border-mainColor text-mainColor py-2 px-5 rounded-full hover:bg-mainColor hover:text-white transition-all "
+                    (click)="showMore()">Veiw
+                    More Products</button>
+            </div>
         </div>
         <!-- slider Brands -->
-         <div class="my-5">
-            <owl-carousel-o [options]="customOptions" >
+        <div class="my-5">
+            <owl-carousel-o [options]="customOptions">
                 <ng-container>
-                 @for (brand of AllBrands; track $index) {
+                    @for (brand of AllBrands; track $index) {
                     <ng-template carouselSlide>
                         <div class="border-2 border-[#EBEEEE] hover:border-mainColor mx-3">
                             <img [src]="brand.image" alt="" class="h-28">
-    
                         </div>
                     </ng-template>
-                 }
-    
+                    }
                 </ng-container>
-    
             </owl-carousel-o>
-         </div>
+        </div>
+        <!-- service -->
+        <div class=" py-12 px-4">
+            <div class="max-w-6xl mx-auto text-center">
+                <p class="text-lg text-mainColor font-semibold">Services</p>
+                <h2 class="text-3xl font-bold text-font3nd mt-2">
+                    Benefits when using <br> our services
+                </h2>
+            </div>
+        
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10 max-w-6xl mx-auto">
+                <div class="bg-white shadow-lg rounded-lg p-6 text-start">
+                    <div class="flex justify-start mb-4">
+                        <span class="bg-gray-200 p-4 rounded-full">
+                            <i class="fa-solid fa-lightbulb text-secondColor text-2xl"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Inspiration</h3>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet consectetur. Est vel risus hendrerit laoreet purus malesuada dignissim.
+                    </p>
+                </div>
+                <div class="bg-white shadow-lg rounded-lg p-6 text-start">
+                    <div class="flex justify-stext-start mb-4">
+                        <span class="bg-gray-200 p-4 rounded-full">
+                            <i class="fa-solid fa-headset text-secondColor text-2xl"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">24/7 Customer Services</h3>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet consectetur. Est vel risus hendrerit laoreet purus malesuada dignissim.
+                    </p>
+                </div>
+        
+                <div class="bg-white shadow-lg rounded-lg p-6 text-start">
+                    <div class="flex justify-stext-start mb-4">
+                        <span class="bg-gray-200 p-4 rounded-full">
+                            <i class="fa-solid fa-truck-fast text-secondColor text-2xl"></i>
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900">Express Shipping</h3>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet consectetur. Est vel risus hendrerit laoreet purus malesuada dignissim.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </section>

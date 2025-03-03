@@ -1,6 +1,11 @@
 <section class="py-5">
-    <div class="container mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-10 md:px-20">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex items-center gap-2 py-5">
+            <p class="text-mainColor font-bold text-2xl">Home</p>
+            <i class="fa-solid fa-chevron-right text-mainColor text-lg"></i>
+            <p class="text-font4nd font-bold text-2xl">Brands</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
             @for (brand of brands; track $index) {
             <div class=" flex flex-col items-center shadow-lg rounded-lg border-2 border-gray-100 max-w-72 gap-3">
                 <img [src]="brand.image" [alt]="brand.name" class="object-fill ">

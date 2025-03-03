@@ -1,5 +1,16 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+// import { HttpInterceptorFn } from '@angular/common/http';
+// import { inject } from '@angular/core';
+// import { ToastrService } from 'ngx-toastr';
+// import { catchError, throwError } from 'rxjs';
 
-export const errorHadelInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req);
-};
+// export const errorHadelInterceptor: HttpInterceptorFn = (req, next) => {
+//   const toastrService = inject(ToastrService)
+//   return next(req).pipe(catchError(
+//     (err) => {
+//       console.log('interceptors', err.error.message);
+//       toastrService.error(err.error.message,'error')
+//       return throwError(() => err)
+
+//     }
+//   ))
+// };

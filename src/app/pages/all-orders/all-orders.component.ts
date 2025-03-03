@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { OrdersService } from '../../core/services/orders/orders.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { IOrders } from '../../shared/interfaces/iorders';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-all-orders',
-  imports: [],
+  imports: [DatePipe, CurrencyPipe],
   templateUrl: './all-orders.component.html',
   styleUrl: './all-orders.component.scss'
 })
@@ -13,8 +14,8 @@ import { IOrders } from '../../shared/interfaces/iorders';
 export class AllOrdersComponent implements OnInit {
   private readonly ordersService = inject(OrdersService);
   private readonly authService = inject(AuthService);
-    Orders: IOrders = {}as IOrders
-  
+  Orders: IOrders[] = []
+
 
   getAllOrders() {
     const userId = this.authService.userDate?.id;
@@ -27,7 +28,9 @@ export class AllOrdersComponent implements OnInit {
     this.ordersService.getUSerOrders(userId).subscribe({
       next: (res) => {
         console.log('Orders:', res);
-        this.Orders=res.data
+        this.Orders = res
+        console.log('Orders:', this.Orders);
+
       },
       error: (err) => {
         console.error('Error fetching orders:', err);

@@ -16,6 +16,7 @@ export interface Iproduct {
   createdAt: string;
   updatedAt: string;
   id: string;
+  isFav?: boolean 
 }
 
 interface Category {

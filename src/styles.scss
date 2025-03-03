@@ -40,3 +40,6 @@ body {
 .ngx-pagination .pagination-previous a:before, .ngx-pagination .pagination-previous.disabled:before,.ngx-pagination .pagination-next.disabled:after {
   display: none !important;
 }
+body{
+    margin-top: calc(35px + 2vw);
+}

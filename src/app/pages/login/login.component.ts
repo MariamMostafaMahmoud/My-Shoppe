@@ -26,7 +26,6 @@ export class LoginComponent {
       this.authService.SendDataLogin(this.SignIn.value).subscribe({
         next: (res) => {
           if (res.message == "success") {
-         
             setTimeout(() => {
               localStorage.setItem('userToken',res.token)
               this.authService.saveUserData()

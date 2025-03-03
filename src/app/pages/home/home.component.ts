@@ -29,13 +29,12 @@ export class HomeComponent implements OnInit {
     pullDrag: false,
     dots: false,
     navSpeed: 700,
-    // navText: ['',''] ,
     responsive: {
       0: {
         items: 3
       },
       400: {
-        items: 4
+        items: 3
       },
       740: {
         items: 5
@@ -52,13 +51,15 @@ export class HomeComponent implements OnInit {
   private readonly brandsService = inject(BrandsService);
   private readonly wishListService = inject(WishListService);
 
-
   AllBrands: IBrands[] = []
   Allproducts: Iproduct[] = []
-  isFav: boolean = false
+
+  productWishList: Iproduct[] = []
+  displayedProductsCount:number=8
   ngOnInit(): void {
     this.getAllProducts();
     this.getAllBrands()
+    this.getWishList()
   }
 
   getAllProducts() {
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
         next: (res) => {
           this.Allproducts = res.data;
           console.log(this.Allproducts)
+          this.markWishlistItems()
         },
         error: (err) => {
           console.log(err)
@@ -98,14 +100,48 @@ export class HomeComponent implements OnInit {
     })
   }
 
+
   // wish list
-  toggleFav() {
-    // this.isFav = true
-    // this.wishListService.AddProductToWishlist(id).subscribe({
-    //   next: (res) => {
-    //     console.log(res)
-    //   }
-    // })
-    this.isFav = !this.isFav;
+  getWishList() {
+    this.wishListService.GetLoggedUserWishlist().subscribe({
+      next: (res) => {
+        this.productWishList = res.data
+        this.markWishlistItems();
+        this.wishListService.CountWishList.next(res.count)
+
+      }
+    })
   }
+  markWishlistItems() {
+    if (!this.productWishList.length || !this.Allproducts.length) return;
+
+    this.Allproducts.forEach(product => {
+      product.isFav = this.productWishList.some(wishItem => wishItem.id === product.id);
+    });
+  }
+  toggleWishlist(productId: string) {
+    if (this.productWishList.some(wishItem => wishItem.id === productId)) {
+      this.wishListService.RemoveProductFromWishList(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.wishListService.CountWishList.next(res.count)
+          this.getWishList();
+        }
+      })
+    }
+    else {
+      this.wishListService.AddProductToWishlist(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.wishListService.CountWishList.next(res.count)
+          this.getWishList();
+        }
+      })
+    }
+  }
+  showMore() {
+    this.displayedProductsCount += 4; 
+  }
+
+
 }

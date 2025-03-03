@@ -8,6 +8,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { headerInterceptor } from './core/interceptors/header/header.interceptor';
 import { provideToastr } from 'ngx-toastr';
 import { spinnerInterceptor } from './core/interceptors/spinner/spinner.interceptor';
+// import { errorHadelInterceptor } from './core/interceptors/error-handel/error-hadel.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(),withInterceptors([headerInterceptor,spinnerInterceptor])),

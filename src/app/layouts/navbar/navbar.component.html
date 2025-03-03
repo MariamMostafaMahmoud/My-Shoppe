@@ -1,4 +1,4 @@
-<nav class="border-b-black border-b-2 ">
+<nav class="border-b-gray-600 border-b-2 ">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
             <span class="self-center text-2xl font-bold whitespace-nowrap ">Shoppe</span>
@@ -35,20 +35,7 @@
         </ul>
            }
             <ul
-                class="ms-auto  font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-2 rtl:space-x-reverse md:mt-0 md:border-0 items-center">
-                <!-- <li>
-                    <a class="block py-2 px-3rounded-sm " aria-current="page"><i class="fa-brands fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a class="block py-2 px-3rounded-sm " aria-current="page"><i class="fa-brands fa-linkedin"></i></a>
-                </li>
-                <li>
-                    <a class="block py-2 px-3rounded-sm " aria-current="page"><i
-                            class="fa-brands fa-square-instagram"></i></a>
-                </li>
-                <li>
-                    <a class="block py-2 px-3rounded-sm " aria-current="page"><i class="fa-brands fa-github"></i></a>
-                </li> -->
+                class="ms-auto  font-medium flex   md:p-0 s border border-gray-100 rounded-lg flex-row  md:mt-0 md:border-0 items-center justify-end gap-2">
                 @if (!isLogin()) {
                 <li>
                     <a class=" py-2 px-5 border-secondColor text-secondColor border-2 rounded-full" aria-current="page" routerLink="/login"
@@ -59,21 +46,23 @@
                         >Sign up</a>
                 </li>
                 }@else {
-                    <li>
-                        <a class="iconNav " aria-current="page"><i class="fa-regular fa-heart"></i></a>
-                    </li>
-                    
+                  
+                    <div class="relative">
+                        <li>
+                            <a class="iconNav " aria-current="page" routerLink="/wishlist"><i class="fa-regular fa-heart"></i></a>
+                        </li>
+                        <span class="absolute top-[4px] left-[25px] bg-secondColor text-white text-[10px] font-bold w-[15px] h-[15px] text-center rounded-full">
+                          {{countWishList}}
+                          </span>
+                      </div>
                   <div class="relative">
                     <li>
                         <a class="iconNav " aria-current="page" routerLink="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
                     </li>
-                    <span class="absolute top-1 right-1 bg-secondColor text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span class="absolute top-[3px] left-[28px] bg-secondColor text-white text-[10px] font-bold w-[15px] h-[15px] text-center rounded-full">
                       {{countCart}}
                       </span>
                   </div>
-                    <!-- <li>
-                        <a class="iconNav " aria-current="page"><i class="fa-solid fa-user"></i></a>
-                    </li> -->
                     <li (click)="authService.LogOut()">
                         <a role="button" class="block py-2 px-3 rounded-sm " aria-current="page"
                             >Log Out</a>

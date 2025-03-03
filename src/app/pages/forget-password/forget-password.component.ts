@@ -39,6 +39,8 @@ export class ForgetPasswordComponent {
         },
         error: (err) => {
           console.log(err)
+          this.isLoading = false;
+
         }
       })
     }
@@ -46,25 +48,24 @@ export class ForgetPasswordComponent {
   }
   sendCode(): void {
     if (this.verfiyCode.valid) {
-      console.log('hello', this.verfiyCode.valid)
       this.isLoading = true;
-      this.authService.setCode(this.verfiyCode.value).subscribe({
+      const resetCodeValue = this.verfiyCode.value.resetCode.replace(/\s/g, '');
+      this.authService.setCode({ resetCode: resetCodeValue }).subscribe({
         next: (res) => {
-          console.log(res)
+          console.log(res);
           if (res.status === 'Success') {
-            this.Step = 3
+            this.Step = 3;
           }
-          // console.log(res)
           this.isLoading = false;
         },
         error: (err) => {
-          console.log(err)
+          console.log(err);
           this.isLoading = false;
-
         }
-      })
+      });
     }
   }
+  
   NewPass(): void {
     if (this.verfiyEmail.valid) {
       this.isLoading = true;
@@ -78,6 +79,8 @@ export class ForgetPasswordComponent {
         },
         error: (err) => {
           console.log(err)
+          this.isLoading = false;
+
         }
       })
     }
